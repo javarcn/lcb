@@ -58,4 +58,15 @@ public class TypeDetail {
     public void setYearName(String yearName) {
         this.yearName = yearName;
     }
+
+    @Override
+    public String toString() {
+        return "TypeDetail{" +
+                "carDetailName='" + carDetailName + '\'' +
+                ", id=" + id +
+                ", imgUrl=" + imgUrl +
+                ", wholeName='" + wholeName + '\'' +
+                ", yearName='" + yearName + '\'' +
+                '}';
+    }
 }

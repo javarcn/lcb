@@ -1,25 +1,40 @@
 package com.lechebang.util;
 
+import com.google.gson.Gson;
+import com.lechebang.model.CarTypeModel;
+import com.lechebang.model.TypeDetail;
+import com.lechebang.model.TypeModel;
 import com.m3.curly.HTTP;
 import com.m3.curly.Response;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/2/28.
  */
 public class GetCarTypeDetail {
 
-    public static String list(int brandId){
+    public static List<TypeDetail> list(int brandId){
+        List<TypeDetail> list=new ArrayList<TypeDetail>();
         String result="";
         String url="https://m.lechebang.com/gateway/car/getCarTypeDetail";
         String json="{\"brandId\":%s,\"token\":\"%s\",\"appCode\":%s,\"lcb_client_id\":\"%s\",\"lcb_request_id\":\"a2083739-caa1-4bf3-b5f2-7ae29718e52a\"}";
         try {
             Response response= HTTP.post(url,String.format(json,brandId,Constants.TOKEN,Constants.APPCODE,Constants.LCB_CLIENT_ID).getBytes(),"text/json");
             result=response.getTextBody();
+            //TODO 解析json
+            Gson gson=new Gson();
+            TypeModel model=gson.fromJson(result,TypeModel.class);
+            if(model.getMsg().equals("ok")){
+                list=model.getResult();
+            }else {
+                System.out.println("GetCarTypeDetail方法:"+model.getMsg());
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return result;
+        return list;
     }
 }
