@@ -4,9 +4,9 @@ import com.google.gson.Gson;
 import com.lechebang.model.Brand;
 import com.lechebang.model.BrandModel;
 import com.lechebang.model.BrandResult;
-import com.lechebang.model.Model;
 import com.m3.curly.HTTP;
 import com.m3.curly.Response;
+import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,6 +16,8 @@ import java.util.List;
  * Created by Administrator on 2017/2/28.
  */
 public class GetCarBrands {
+
+    public static Logger logger=Logger.getLogger(GetCarBrands.class);
 
     public static List<Brand> list(int cityId){
         List<Brand> brandList=new ArrayList<Brand>();
@@ -35,7 +37,7 @@ public class GetCarBrands {
                     }
                 }
             }else {
-                System.out.println("GetCarBrands方法:"+model.getMsg());
+                logger.error(model.getMsg()+"GetCarBrands方法执行失败:cityId="+cityId);
             }
 
         } catch (IOException e) {

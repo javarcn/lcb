@@ -1,22 +1,15 @@
 package com.lechebang.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- * Created by Administrator on 2017/3/1.
+ * Created by Administrator on 2017/3/4.
  */
-public class Model {
-
-    /**
-     * costTime : 16
-     * msg : ok
-     * result :
-     * resultCode : 200
-     * statusCode : 200
-     * validationErrors : null
-     */
-
+public class ManualModel {
     private int costTime;
     private String msg;
-    private Object result;
+    private List<ManualResult> result=new ArrayList<ManualResult>();
     private String resultCode;
     private String statusCode;
     private Object validationErrors;
@@ -37,11 +30,11 @@ public class Model {
         this.msg = msg;
     }
 
-    public Object getResult() {
+    public List<ManualResult> getResult() {
         return result;
     }
 
-    public void setResult(Object result) {
+    public void setResult(List<ManualResult> result) {
         this.result = result;
     }
 

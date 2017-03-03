@@ -7,8 +7,7 @@ package com.lechebang.util;
 public class Constants {
     public final static int APPCODE=100;
     public final static int MILEAGE=5000;
-//    public final static String  TOKEN="9edff60b6dec104bcb6e25549710834e";//网络token
-    public final static String  TOKEN="597dc017ca11fd0d913ef24b21d3e4f9";//jiacheng
-    public final static String LCB_CLIENT_ID ="cd3585e5-d591-4f07-a531-e825cec9e82c";
+    public final static String  TOKEN="5264b29840d6af7067a86bf91684351f";//网络token
+    public final static String LCB_CLIENT_ID ="f3532aac-4e09-4c26-999c-4249221960b0";
 
 }

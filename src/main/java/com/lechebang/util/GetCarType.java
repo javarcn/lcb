@@ -1,12 +1,13 @@
 package com.lechebang.util;
 
 import com.google.gson.Gson;
-import com.lechebang.model.*;
+import com.lechebang.model.CarTypeModel;
+import com.lechebang.model.CarTypeResult;
 import com.m3.curly.HTTP;
 import com.m3.curly.Response;
+import org.apache.log4j.Logger;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,8 +15,10 @@ import java.util.List;
  */
 public class GetCarType {
 
+    public static Logger logger=Logger.getLogger(GetCarType.class);
+
+
     public static List<CarTypeResult> list(int brandId, int cityId){
-        List<CarTypeResult> list=new ArrayList<CarTypeResult>();
         String result="";
         String url="https://m.lechebang.com/gateway/car/getBrandProducerCar";
         String json="{\"brandId\":%s,\"cityId\":%s,\"token\":\"%s\",\"appCode\":%s,\"lcb_client_id\":\"%s\",\"lcb_request_id\":\"10da707e-8c79-4417-be49-459ddf6a3415\"}";
@@ -26,13 +29,13 @@ public class GetCarType {
             Gson gson=new Gson();
             CarTypeModel model=gson.fromJson(result,CarTypeModel.class);
             if(model.getMsg().equals("ok")){
-                list=model.getResult();
+                return model.getResult();
             }else {
-                System.out.println("GetCarType方法:"+model.getMsg());
+                logger.error(model.getMsg()+"GetCarType方法执行失败:brandId="+brandId+",cityId="+cityId);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return list;
+        return null;
     }
 }
