@@ -20,12 +20,13 @@ public class App {
         PropertyConfigurator.configure("src/log4j.properties");
         System.out.println( "数据爬取开始！" );
         long start= System.currentTimeMillis();
+        int num=0;
         //TODO 获取城市
         List<City> cityList=GetCitys.list();
 //        for (City city:cityList){
         City city=new City();
-        city.setCode(10101);
-        city.setName("北京");
+        city.setCode(10801);
+        city.setName("广州");
             logger.info("获取城市****************************************"+city.toString());
             //TODO 获取品牌
             List<Brand> brandList=GetCarBrands.list(city.getCode());
@@ -40,7 +41,7 @@ public class App {
 //                            logger.info(brand.getBrandName()+result.getProducerName()+type.toString()+typeDetail.toString());
                             //TODO 保存汽车型号,得到ID
                             SaveCar saveCar=SaveMyCar.ok(brand.getId(),brand.getBrandName(),"",result.getId(),type.getId(),type.getCarName(),typeDetail.getId(),typeDetail.getYearName(),typeDetail.getCarDetailName());
-/*                            //TODO 查看保养计划
+                            //TODO 查看保养计划
                             PlanResult planResult=GetMaintenancePlan.list(city.getCode(),saveCar.getId());
                             for (Plan plan:planResult.getLstAllItemLcbPrice()){
                                 logger.debug(plan.toString());
@@ -54,18 +55,21 @@ public class App {
                             List<ManualResult>manualResultList=GetMaintenanceManual.list(saveCar.getId(),city.getCode());
                             for(ManualResult manual:manualResultList){
                                 logger.debug(manual.toString());
-                            }*/
-                            logger.debug(city.getName()+brand.getBrandName()+result.getProducerName()+type.getCarName()+typeDetail.getWholeName()+"抓取完毕");
+                            }
+//                            logger.debug(city.getName()+brand.getBrandName()+result.getProducerName()+type.getCarName()+typeDetail.getWholeName()+"抓取完毕");
                             //TODO 删除该车型
                             DelMyCar.ok(saveCar.getId());
-                            logger.debug(city.getName()+brand.getBrandName()+result.getProducerName()+type.getCarName()+typeDetail.getWholeName()+"该车型删除成功!");
+                            num++;
+                            System.out.println( "删除成功！已跑完"+num+"个回合");
+//                            logger.debug(city.getName()+brand.getBrandName()+result.getProducerName()+type.getCarName()+typeDetail.getWholeName()+"该车型删除成功!");
                         }
                     }
                 }
             }
+            System.out.println(city.getName()+"已跑完！");
 //        }
-        System.out.println( "数据爬取结束！" );
+        System.out.println( "数据爬取结束！共跑完"+num+"个回合!");
         long end= System.currentTimeMillis();
-        System.out.println("北京地区全部车型抓取完毕，共耗时："+(end-start)/1000+"秒");
+        System.out.println("所有地区全部车型抓取完毕，共耗时："+(end-start)/1000+"秒");
     }
 }
